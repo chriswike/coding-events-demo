@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 /**
@@ -20,9 +18,17 @@ public class Event {
     @Size(max = 500, message = "Description too long!")
     private String description;
 
+    @NotBlank(message="Location can't be blank.")
+    private String location;
+
+    @AssertTrue(message="Registration is required.")
+    private boolean mustRegister;
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
+
+    @Positive(message = "Requires a positive number of people")
+    private int numberOfAttendees;
 
     public Event(String name, String description, String contactEmail) {
         this();
@@ -34,6 +40,31 @@ public class Event {
     public Event() {
         this.id = nextId;
         nextId++;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+
+    public int getNumberOfAttendees() {
+        return numberOfAttendees;
+    }
+
+    public void setNumberOfAttendees(int numberOfAttendees) {
+        this.numberOfAttendees = numberOfAttendees;
+    }
+
+    public boolean isMustRegister() {
+        return mustRegister;
+    }
+
+    public void setMustRegister(boolean mustRegister) {
+        this.mustRegister = mustRegister;
     }
 
     public String getName() {
